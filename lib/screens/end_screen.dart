@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class EndScreen extends StatefulWidget {
-  final String language; // 'en', 'es', 'fr', 'ru', 'ukr', 'jp', 'zh'
+  final String language; // 'en', 'es', 'fr', 'ko', 'ukr', 'zh'
 
   const EndScreen({super.key, required this.language});
 
@@ -32,9 +32,8 @@ class _EndScreenState extends State<EndScreen> {
     'en': 'Thank you for your visit!',
     'es': '¡Gracias por tu visita!',
     'fr': 'Merci pour votre visite !',
-    'ru': 'Спасибо за визит!',
+    'ko': '방문해 주셔서 감사합니다!',
     'ukr': 'Дякуємо за візит!',
-    'jp': 'ご訪問ありがとうございました！',
     'zh': '感谢您的参观！',
   };
 
@@ -42,9 +41,8 @@ class _EndScreenState extends State<EndScreen> {
     'en': 'Back to Tour',
     'es': 'Volver al recorrido',
     'fr': 'Retour à la visite',
-    'ru': 'Назад к туру',
+    'ko': '투어로 돌아가기',
     'ukr': 'Назад до туру',
-    'jp': 'ツアーに戻る',
     'zh': '返回导览',
   };
 

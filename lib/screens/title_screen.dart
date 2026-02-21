@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'language_screen.dart';
 
 class TitleScreen extends StatefulWidget {
@@ -10,7 +11,9 @@ class TitleScreen extends StatefulWidget {
 
 class _TitleScreenState extends State<TitleScreen>
     with TickerProviderStateMixin {
+  static const Duration _slideDuration = Duration(seconds: 8);
   int currentIndex = 0;
+  bool _didPrecache = false;
 
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
@@ -20,14 +23,14 @@ class _TitleScreenState extends State<TitleScreen>
 
   late AnimationController _buttonController;
   late Animation<double> _buttonScale;
+  late final double _zoomEndScale;
 
   final List<String> images = [
     'assets/images/en.jpg',
     'assets/images/es.jpg',
     'assets/images/fr.jpg',
-    'assets/images/ru.jpg',
+    'assets/images/ko.jpg',
     'assets/images/ukr.jpg',
-    'assets/images/jp.jpg',
     'assets/images/zh.jpg',
   ];
 
@@ -35,16 +38,15 @@ class _TitleScreenState extends State<TitleScreen>
     'Start the Tour', // EN
     'Iniciar la Tour', // ES
     'Commencer la visite', // FR
-    'Начать тур', // RU
+    '투어 시작', // KO
     'Почати тур', // UKR
-    'ツアーを開始', // JP
     '開始您的旅程', // ZH
   ];
 
   @override
   void initState() {
     super.initState();
-
+    _zoomEndScale = defaultTargetPlatform == TargetPlatform.windows ? 1.01 : 1.04;
     // Fade für Hintergrund
     _fadeController = AnimationController(
       vsync: this,
@@ -55,10 +57,10 @@ class _TitleScreenState extends State<TitleScreen>
     // Sanftes Zoom
     _zoomController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 8),
+      duration: _slideDuration,
     );
-    _zoomAnimation = Tween(begin: 1.0, end: 1.05).animate(
-      CurvedAnimation(parent: _zoomController, curve: Curves.easeInOut),
+    _zoomAnimation = Tween(begin: 1.0, end: _zoomEndScale).animate(
+      CurvedAnimation(parent: _zoomController, curve: Curves.linear),
     );
     _zoomController.forward();
 
@@ -74,7 +76,17 @@ class _TitleScreenState extends State<TitleScreen>
 
     // Starte Slideshow
     _fadeController.forward();
-    Future.delayed(const Duration(seconds: 8), _nextSlide);
+    Future.delayed(_slideDuration, _nextSlide);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_didPrecache) return;
+    for (final image in images) {
+      precacheImage(AssetImage(image), context);
+    }
+    _didPrecache = true;
   }
 
   void _nextSlide() {
@@ -88,7 +100,7 @@ class _TitleScreenState extends State<TitleScreen>
       _zoomController
         ..reset()
         ..forward();
-      Future.delayed(const Duration(seconds: 8), _nextSlide);
+      Future.delayed(_slideDuration, _nextSlide);
     });
   }
 
@@ -114,7 +126,13 @@ class _TitleScreenState extends State<TitleScreen>
                 scale: _zoomAnimation.value,
                 child: FadeTransition(
                   opacity: _fadeAnimation,
-                  child: Image.asset(images[currentIndex], fit: BoxFit.cover),
+                  child: Image.asset(
+                    images[currentIndex],
+                    fit: BoxFit.cover,
+                    gaplessPlayback: true,
+                    filterQuality: FilterQuality.low,
+                    isAntiAlias: false,
+                  ),
                 ),
               );
             },

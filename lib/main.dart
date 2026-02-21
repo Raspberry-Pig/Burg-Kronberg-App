@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/location_gate_screen.dart';
 import 'screens/title_screen.dart';
 
 void main() {
@@ -11,10 +12,10 @@ class BurgApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Burg Kronberg Tour',
+      title: 'Burg Kronberg',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blueGrey),
-      home: TitleScreen(), // kein const, weil State/Animation
+      home: const LocationGateScreen(child: TitleScreen()),
     );
   }
 }

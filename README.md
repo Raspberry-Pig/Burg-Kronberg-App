@@ -2,9 +2,6 @@
 
 A new Flutter project.
 
-Audioguide für die Burg Kronberg, Flutter Build, Test, noch keine Texte und Audios
-
-
 ## Getting Started
 
 This project is a starting point for a Flutter application.

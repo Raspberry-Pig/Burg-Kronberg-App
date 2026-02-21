@@ -1,5 +1,5 @@
-name: burgapp
-description: "A new Flutter project."
+name: burg_kronberg_tour
+description: "Multilingual guide app for Burg Kronberg."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -37,6 +37,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  just_audio_windows: ^0.2.2
+  geolocator: ^14.0.2
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +50,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -55,54 +58,9 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/images/en.jpg
-    - assets/images/es.jpg
-    - assets/images/fr.jpg
-    - assets/images/ru.jpg
-    - assets/images/ukr.jpg
-    - assets/images/jp.jpg
-    - assets/images/zh.jpg
-    - assets/images/burg_background.jpg
-    - assets/flags/en.png
-    - assets/flags/es.png
-    - assets/flags/fr.png
-    - assets/flags/ru.png
-    - assets/flags/ukr.png
-    - assets/flags/jp.png
-    - assets/flags/zh.png
-    - assets/images/room1.jpg
-    - assets/images/room2.jpg
-    - assets/images/room3.jpg
-    - assets/images/end1.jpg
-    - assets/images/end2.jpg
-    - assets/images/end3.jpg
-    - assets/images/end4.jpg
-    - assets/images/end5.jpg
-    - assets/images/end6.jpg
-    - assets/images/end7.jpg
-    - assets/images/end8.jpg
-    - assets/images/end9.jpg
-    - assets/audio/en_room1.mp3
-    - assets/audio/es_room1.mp3
-    - assets/audio/jp_room1.mp3
-    - assets/audio/zh_room1.mp3
-    - assets/audio/ru_room1.mp3
-    - assets/audio/ukr_room1.mp3
-    - assets/audio/fr_room1.mp3
-    - assets/audio/en_room2.mp3
-    - assets/audio/es_room2.mp3
-    - assets/audio/ru_room2.mp3
-    - assets/audio/ukr_room2.mp3
-    - assets/audio/jp_room2.mp3
-    - assets/audio/zh_room2.mp3
-    - assets/audio/fr_room2.mp3
-    - assets/audio/en_room3.mp3
-    - assets/audio/es_room3.mp3
-    - assets/audio/fr_room3.mp3
-    - assets/audio/zh_room3.mp3
-    - assets/audio/jp_room3.mp3
-    - assets/audio/ru_room3.mp3
-    - assets/audio/ukr_room3.mp3
+    - assets/images/
+    - assets/flags/
+    - assets/audio/
 
 
 
@@ -142,3 +100,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_launcher_icons:
+  image_path: "assets/images/logo.jpg"
+  android: true
+  ios: true
+  web:
+    generate: true
+  windows:
+    generate: true
+  macos:
+    generate: true

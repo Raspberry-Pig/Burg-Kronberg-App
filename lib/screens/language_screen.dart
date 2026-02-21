@@ -9,9 +9,8 @@ class LanguageScreen extends StatelessWidget {
     {'name': 'English', 'code': 'EN', 'flag': 'assets/flags/en.png'},
     {'name': 'Español', 'code': 'ES', 'flag': 'assets/flags/es.png'},
     {'name': 'Français', 'code': 'FR', 'flag': 'assets/flags/fr.png'},
-    {'name': 'Русский', 'code': 'RU', 'flag': 'assets/flags/ru.png'},
+    {'name': '한국어', 'code': 'KO', 'flag': 'assets/flags/ko.png'},
     {'name': 'Українська', 'code': 'UKR', 'flag': 'assets/flags/ukr.png'},
-    {'name': '日本語', 'code': 'JP', 'flag': 'assets/flags/jp.png'},
     {'name': '中文', 'code': 'ZH', 'flag': 'assets/flags/zh.png'},
   ];
 
