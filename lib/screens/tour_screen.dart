@@ -270,6 +270,8 @@ class _TourScreenState extends State<TourScreen> {
   bool isPlaying = false;
   Duration currentPosition = Duration.zero;
   Duration totalDuration = Duration.zero;
+  bool _isScrubbing = false;
+  double? _scrubValueMs;
 
   @override
   void initState() {
@@ -278,6 +280,7 @@ class _TourScreenState extends State<TourScreen> {
     _loadAudio();
 
     _player.positionStream.listen((pos) {
+      if (_isScrubbing) return;
       setState(() {
         currentPosition = pos;
       });
@@ -545,12 +548,37 @@ class _TourScreenState extends State<TourScreen> {
                 ),
               ),
               Slider(
-                value: currentPosition.inMilliseconds.toDouble(),
+                value: (_isScrubbing
+                        ? (_scrubValueMs ??
+                              currentPosition.inMilliseconds.toDouble())
+                        : currentPosition.inMilliseconds.toDouble())
+                    .clamp(
+                      0.0,
+                      totalDuration.inMilliseconds.toDouble() > 0
+                          ? totalDuration.inMilliseconds.toDouble()
+                          : 1.0,
+                    ),
                 max: totalDuration.inMilliseconds.toDouble() > 0
                     ? totalDuration.inMilliseconds.toDouble()
                     : 1,
+                onChangeStart: (value) {
+                  setState(() {
+                    _isScrubbing = true;
+                    _scrubValueMs = value;
+                  });
+                },
                 onChanged: (value) {
-                  _player.seek(Duration(milliseconds: value.toInt()));
+                  setState(() {
+                    _scrubValueMs = value;
+                  });
+                },
+                onChangeEnd: (value) async {
+                  await _player.seek(Duration(milliseconds: value.toInt()));
+                  setState(() {
+                    _isScrubbing = false;
+                    _scrubValueMs = null;
+                    currentPosition = Duration(milliseconds: value.toInt());
+                  });
                 },
                 activeColor: Colors.white,
                 inactiveColor: Colors.grey,
