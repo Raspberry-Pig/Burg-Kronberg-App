@@ -399,6 +399,29 @@ class _TourScreenState extends State<TourScreen> {
     }
   }
 
+  Widget _buildNavButton({
+    required String text,
+    required VoidCallback onPressed,
+  }) {
+    return Expanded(
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+          minimumSize: const Size(0, 48),
+        ),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            text,
+            maxLines: 1,
+            softWrap: false,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _player.dispose();
@@ -533,12 +556,12 @@ class _TourScreenState extends State<TourScreen> {
                 inactiveColor: Colors.grey,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
+                  _buildNavButton(
+                    text: prevText,
                     onPressed: _previousRoom,
-                    child: Text(prevText),
                   ),
+                  const SizedBox(width: 8),
                   IconButton(
                     iconSize: 64,
                     color: Colors.white,
@@ -549,7 +572,11 @@ class _TourScreenState extends State<TourScreen> {
                           : Icons.play_circle_filled,
                     ),
                   ),
-                  ElevatedButton(onPressed: _nextRoom, child: Text(nextText)),
+                  const SizedBox(width: 8),
+                  _buildNavButton(
+                    text: nextText,
+                    onPressed: _nextRoom,
+                  ),
                 ],
               ),
               const SizedBox(height: 40),
